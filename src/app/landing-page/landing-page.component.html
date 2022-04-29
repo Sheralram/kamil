@@ -1,0 +1,692 @@
+<!-- <ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner> -->
+<!-- <ngx-spinner bdOpacity=0.9 bdColor="#fff" size="medium" color="grey" type="ball-spin" [fullScreen]="false">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner> -->
+<!-- <ngx-spinner
+  bdColor="rgba(0, 0, 0, 1)"
+  template="<img src='https://media.giphy.com/media/3o7bu3XilJ5BOiSGic/giphy.gif' />"
+>
+</ngx-spinner> -->
+<ngx-bootstrap-spinner></ngx-bootstrap-spinner>
+
+<app-header></app-header>
+
+
+<div id="dashboard-mainContent" class="mainContent">
+    <div id="dashboard-container" class="container-fluid content-container">
+        <div id="dashboard-heading" class="heading-content">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="page-title">Remote Selling Report</h3> 
+                </div>
+                <div class="col-md-6 save-search-container">
+                        
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <div class="saved-search">
+                                <select class="form-control" id="sel1">
+                                <option>Select saved search</option>
+                                </select>  
+                            </div>
+                        </li>
+                        <li><a href="#"><i class="fa fa-envelope fa-1x"></i> </a></li>
+                        <li><a href="#" (click)="printPage()"><i class="fa fa-print"></i></a></li>
+                       
+                       
+                    </ul>
+                </div>
+            </div>
+        
+          
+        </div>
+     
+        <div class="body-container">
+
+            <div class="filter-section">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                               
+                            <label for="sel1">Select Date</label>
+                              <select class="form-control" id="sel1"  (change)="selectDateHandler(compareDate,selectDate)" [(ngModel)]="selectDate">
+                                <option  value={{selectDate}}>{{selectDate}}</option>
+                                <option  *ngFor="let datedata of fieldList" value="">{{datedata.value}}</option>
+                                <!-- <option value="Last7">Last 7 Days</option>
+                                    <option value="LastMonth">Last Month</option>
+                                    <option value="">Last Quarter</option>
+                                    <option>Last Half Year</option>
+                                    <option>Last Year</option> -->
+                                <option value="custom"> Custom</option> 
+                                    
+                             
+                                    </select> 
+                                   
+                            <!-- <input type="date" class="form-control"> -->
+                          </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="row">
+                            <label class="col-md-12" for="sel1">Filter By Organisational Hierarchy</label>
+                            <!-- <div class="col-md-4">
+                                <div class="form-group">
+                                    <select class="form-control" id="sel1">
+                                    <option>Chain</option>
+                                    <option>Chain 2</option>
+                                    <option>Chain 3</option>
+                                    <option>Chain 4</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <!-- <label>District</label> -->
+                                        <ng-multiselect-dropdown
+                                            [placeholder]="'Select District'"
+                                            [settings]="dropdownSettingsDist"
+                                            [data]="districtList"
+                                            [(ngModel)]="districtSelectedItems"
+                                            >
+                                        </ng-multiselect-dropdown>
+                                        
+                                    </div>
+                                    <!-- <select class="form-control" id="sel1">
+                                    <option>District</option>
+                                    <option>District 2</option>
+                                    <option>District 3</option>
+                                    <option>District 4</option>
+                                    </select> -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                      
+                                        <ng-multiselect-dropdown
+                                            [placeholder]="'Select Store'"
+                                            [settings]="dropdownSettings"
+                                            [data]="storeList"
+                                            [(ngModel)]="storeSelectedItems"
+                                            >
+                                        </ng-multiselect-dropdown>
+                                        
+                                    </div>
+                                    <!-- <select class="form-control" id="sel1">
+                                    <option>Store</option>
+                                    <option>Store 2</option>
+                                    <option>Store 3</option>
+                                    <option>Store 4</option>
+                                    </select> -->
+                                </div>
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="col-md-3 text-left">
+                        <div class="row">
+                            <div class="col-md-12 btn-container">
+                                <button class="btn btn-default">Save Search</button>
+                                <button class="btn btn-primary">Apply Filter</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="dashboard-slider-section">
+
+                  <div id="myCarousel" class="carousel slide" data-interval="false">
+                    <div class="carousel-inner">
+                        
+                      <div *ngFor="let chunkProducts of dashboardSliderData; let i = index" class="item {{ i == 0 ? 'active' : '' }}">
+                        <div class="row">
+                          <div class="col-md-2" *ngFor="let slider of chunkProducts; let j = index">
+                            <div class="card">
+                              
+                              <div class="card-body av-card" (click)="open(mymodal, slider)">
+                               
+                                    <div class="card-list">
+                                        <div class="middle-section">
+                                            <div class="row">
+                                                <div class="col-xs-1">
+                                                    <img class="card-img" src="assets/images/dashboard/{{ slider.icon }}.svg" alt="Vector">
+                                                </div>
+                                                <div class="col-xs-10">
+                                                    <h4 class="category-name">{{ slider.label }}</h4>
+                                                    <div class="counter">{{ slider.precision }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                   
+                 
+
+                    <!-- <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <img class="lyphicon-chevron-left" src="assets/images/dashboard/triangle-left.png" />
+                    </a> -->
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                        <img class="lyphicon-chevron-right" src="assets/images/dashboard/arrow-right.svg" />
+                    </a>
+                </div>
+
+
+            </div>  
+
+            
+          
+            <ng-template #mymodal let-modal>
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h4 class="modal-title" id="modal-basic-title">Drill Down</h4>
+                        </div>
+                        <div class="col-xs-6">
+                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body drill-down-form">
+                    <table class="table">
+                       
+                        <tbody>
+                          <tr>
+                            <th scope="row">Age</th>
+                            <td><input type="checkbox" value="" checked> 0-20</td>
+                            <td><input type="checkbox" value="" checked> 20-40</td>
+                            <td><input type="checkbox" value="" checked> Above 40</td>
+                          </tr>
+                          <!-- <tr>
+                          
+                            <th scope="row">Gender</th>
+                            <td><input type="checkbox" value=""  checked>Male</td>
+                            <td><input type="checkbox" value="" checked> Female</td>
+                            <td></td>
+                          </tr> -->
+                          <tr>
+                            <th scope="row">Cutomer Type</th>
+                            <td><input type="checkbox" value="" checked> </td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Loyalty</th>
+                            <td><input type="checkbox" value="" checked> </td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Product Category</th>
+                            <td><input type="checkbox" value="" checked> </td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Promotion</th>
+                            <td><input type="checkbox" value="" checked> </td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  
+
+                
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">Apply</button>
+                  <!-- <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button> -->
+                </div>
+            </ng-template>
+
+
+            <div class="main-container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Age</label>
+                                    <ng-multiselect-dropdown
+                                        [placeholder]="'Select Age'"
+                                        [settings]="dropdownSettings"
+                                        [data]="ageList"
+                                        [(ngModel)]="ageSelectedItems"
+                                        >
+                                    </ng-multiselect-dropdown>
+                                    
+                                </div>
+                            </div>
+                             <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    <ng-multiselect-dropdown
+                                    [placeholder]="'Select Gender'"
+                                    [settings]="dropdownSettings"
+                                    [data]="genderList"
+                                    [(ngModel)]="genderSelectedItems"
+                                    >
+                                </ng-multiselect-dropdown>
+
+                                    <!-- <select class="form-control"  id="sel1">
+                                    <option>Female</option>
+                                    <option>Male</option>
+                                    </select>  -->
+                                </div>
+                            </div> 
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Loyalty</label>
+                                    <select class="form-control" id="sel1">
+                                        <option>Loyalty</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Customer Type</label>
+                                   
+                                    <select class="form-control" id="sel1">
+                                        <option>Customer Type</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Product Category</label>
+                                    <select class="form-control" id="sel1">
+                                        <option>Product Category</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <br>
+                                    <button class="btn btn-primary" (click)="openCompareDate(compareDate)"> Compare to Date</button>
+                               
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="chart-container report-container-section">
+                            <app-chart-page [filterData]= "filterDataObj"></app-chart-page>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ng-template #compareDate let-modal class="compare-date-popup">
+                <div class="modal-header compare-date-header">
+                    <div class="row">
+                        <div class="col-xs-10">
+                            <h4 class="modal-title" id="modal-basic-title">Custom Date</h4>
+                        </div>
+                        <div class="col-xs-2">
+                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body drill-down-form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="age">Date From</label>
+                                <input type="date"  max="{{maxDate | date:'yyyy-MM-dd'}}" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="age">Date To</label>
+                                <input type="date"  max="{{maxDate | date:'yyyy-MM-dd'}}" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">Apply</button>
+                  <!-- <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button> -->
+                </div>
+            </ng-template>
+
+           <!-- <div class="tab-button">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a class="btn" [ngClass]="selectTab=='Summary' ? 'activeTab' : '' " (click)="selectedTab('Summary')">
+                            <i class="fa fa-id-card"></i> Summary
+                        </a>
+                          
+                        <a class="btn" [ngClass]="selectTab=='Compare' ? 'activeTab' : '' " (click)="selectTab='Compare';selectTab=='Compare' ? openCompare(compareModal) : '' ">
+                            <i class="fa fa-random"></i> Compare
+                        </a>
+                    </div>
+                 
+                </div> 
+            </div>   -->
+
+
+            <ng-template #compareModal let-modal>
+                <div class="modal-body drill-down">
+                    <br>
+                    <div class="row" style="margin-top:15px;">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="age">Select District</label>
+                                <ng-multiselect-dropdown
+                                [placeholder]="'Select District'"
+                                [settings]="dropdownSettings"
+                                [data]="districtList"
+                                [(ngModel)]="districtSelectedItems"
+                                >
+                                </ng-multiselect-dropdown>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="age">Select Store</label>
+                                <ng-multiselect-dropdown
+                                [placeholder]="'Select Store'"
+                                [settings]="dropdownSettings"
+                                [data]="storeList"
+                                [(ngModel)]="storeSelectedItems"
+                                >
+                                </ng-multiselect-dropdown>
+                            </div>
+                        </div>
+                        <div class="col-md-3" >
+                            <br>
+                            <div class="form-group" *ngFor="let obj of cardlist; let i = index">
+                                <label for="{{ obj.categoryName }}">{{ obj.categoryName }} </label>
+                                <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;</label>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-3">
+                            <br>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="age">Age </label>
+                                    <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">Gender </label>
+                                    <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">Loyalty </label>
+                                    <label class="checkbox-inline"><input type="checkbox" value="">&nbsp;</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')">Apply</button>
+                </div>
+            </ng-template>
+
+
+            <!-- <div class="report-container-section" *ngIf="selectTab=='Summary'">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="fav-report-card-ul distribution-section" *ngIf="isCardPopup">
+                            <h4 class="text-center">Total Amount Distribution</h4>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group-title">
+                                        <label for="age">District01 </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Age</label>
+                                        <select class="form-control" id="sel1">
+                                            <option>0-20</option>
+                                            <option>20-40</option>
+                                            <option>40+</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Gender</label>
+                                        <select class="form-control" id="sel1">
+                                        <option>Female</option>
+                                        <option>Male</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Loyalty</label>
+                                        <select class="form-control" id="sel1">
+                                            <option>Loyalty</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group-btn">
+                                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                                            <button type="button" class="btn btn-secondary" (click)="isCardPopup=false"><i class="fa fa-pie-chart" aria-hidden="true"></i></button>
+                                            <button type="button" class="btn btn-secondary" (click)="isCardPopup=false"><i class="fa fa-line-chart" aria-hidden="true"></i></button>
+                                            <button type="button" class="btn btn-secondary" (click)="isCardPopup=false"><i class="fa fa-bar-chart" aria-hidden="true"></i></button>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Store</th>
+                                        <th colspan="2">Age ($)</th>
+                                        <th colspan="2">Gender ($)</th>
+                                        <th rowspan="2">Loyalty</th>
+                                    </tr>
+                                    <tr>
+                                        <th>0-20</th>
+                                        <th>20-40</th>
+                                        <th>Male</th>
+                                        <th>Female</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Store name 01</td>
+                                        <td>5000</td>
+                                        <td>17000</td>
+                                        <td>14000</td>
+                                        <td>16000</td>
+                                        <td>38000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Store name 02</td>
+                                        <td>4000</td>
+                                        <td>16000</td>
+                                        <td>13000</td>
+                                        <td>8000</td>
+                                        <td>19000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Store name 03</td>
+                                        <td>7000</td>
+                                        <td>40000</td>
+                                        <td>13000</td>
+                                        <td>17000</td>
+                                        <td>9000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Store name 04</td>
+                                        <td>1000</td>
+                                        <td>20000</td>
+                                        <td>11000</td>
+                                        <td>29000</td>
+                                        <td>5000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Store name 05</td>
+                                        <td>4000</td>
+                                        <td>50000</td>
+                                        <td>20000</td>
+                                        <td>30000</td>
+                                        <td>10000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                       
+                    </div>
+                </div>
+                <br/>
+
+                
+                <div class="chart-container" *ngIf="!isCardPopup">
+                    <div class="row" >
+                        <div class="col-md-4">
+                            <div class="fav-report-card-ul">
+                                <h4 class="page-title">Total Meetings</h4> 
+                                <div echarts [options]="chartOption" class="demo-chart" ></div>
+                             </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="fav-report-card-ul">
+                                <h4 class="page-title">Avg Meeting Time</h4> 
+                                <div echarts [options]="chartOption2" class="demo-chart"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="fav-report-card-ul">
+                                <h4 class="page-title">Total Transactions</h4> 
+                                <div echarts [options]="chartOption3" class="demo-chart"></div>
+                            </div>
+                        </div>
+                    </div> <br>
+    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="fav-report-card-ul">
+                                <h4 class="page-title">Total Amount</h4> 
+                                <div echarts [options]="chartOption4" class="demo-chart"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="fav-report-card-ul">
+                                <h4 class="page-title">$ per Transactions</h4> 
+                                <div echarts [options]="chartOption5" class="demo-chart"></div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div> -->
+            
+            <div class="report-container-section" *ngIf="selectTab=='Compare'">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="fav-report-card-ul distribution-section" *ngIf="isComparePopup">
+                            <!-- <h4 class="text-center">Total Amount Distribution</h4> -->
+                            <div class="row">
+                               
+                                <div class="col-md-3 pull-right">
+                                    <div class="form-group-btn form-group">
+                                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                                            <button type="button" class="btn btn-secondary"><i class="fa fa-pie-chart" aria-hidden="true"></i></button>
+                                            <button type="button" class="btn btn-secondary"><i class="fa fa-line-chart" aria-hidden="true"></i></button>
+                                            <button type="button" class="btn btn-secondary"><i class="fa fa-bar-chart" aria-hidden="true"></i></button>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">District</th>
+                                        <th rowspan="2">Meetings</th>
+                                        <th rowspan="2">Amount ($)</th>
+                                        <th colspan="3">Age ($)</th>
+                                        <th colspan="2">Gender ($)</th>
+                                    </tr>
+                                    <tr>
+                                        <th>0-20</th>
+                                        <th>20-40</th>
+                                        <th>40+</th>
+                                        <th>Male</th>
+                                        <th>Female</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>District 01</td>
+                                        <td>15</td>
+                                        <td>8200</td>
+                                        <td>100</td>
+                                        <td>1200</td>
+                                        <td>1700</td>
+                                        <td>3300</td>
+                                        <td>5400</td>
+                                    </tr>
+                                  
+                                    <tr>
+                                        <td>District 03</td>
+                                        <td>18</td>
+                                        <td>9100</td>
+                                        <td>2250</td>
+                                        <td>3500</td>
+                                        <td>2000</td>
+                                        <td>2200</td>
+                                        <td>4900</td>
+                                    </tr>
+                                    <tr>
+                                        <td>District 04</td>
+                                        <td>12</td>
+                                        <td>5250</td>
+                                        <td>600</td>
+                                        <td>1750</td>
+                                        <td>2900</td>
+                                        <td>2600</td>
+                                        <td>2650</td>
+                                    </tr>
+                                    <tr>
+                                        <td>District 05</td>
+                                        <td>25</td>
+                                        <td>6500</td>
+                                        <td>950</td>
+                                        <td>7500</td>
+                                        <td>2200</td>
+                                        <td>9250</td>
+                                        <td>7300</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                       
+                    </div>
+                </div>
+                <br/>
+            </div>
+
+        </div>
+    </div>
+</div>    

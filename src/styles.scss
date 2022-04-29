@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:500,700");
+
+// regular style toast
+@import '~ngx-toastr/toastr';
+
+// bootstrap style toast
+// or import a bootstrap 4 alert styled design (SASS ONLY)
+// should be after your bootstrap imports, it uses bs4 variables, mixins, functions
+
+
+// .fancyFont {
+//   font-family: 'Montserrat';
+// }
+
+body{
+ // font-family: 'Lato', sans-serif;
+    font-style: normal;
+    background-color:#E5E5E5;
+    font-family: 'Montserrat';
+  }
+
+.container-fluid {
+    padding-right: 30px;
+    padding-left: 30px;
+}
+

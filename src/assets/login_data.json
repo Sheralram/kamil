@@ -1,0 +1,135 @@
+{
+    "associate": {
+        "partyId": 2,
+        "associateNumber": "102",
+        "lastName": "Associate",
+        "middleName": "Manager",
+        "firstName": "Start",
+        "language": "en_US"
+    },
+
+    
+
+        "districts": [
+            {
+                "id": 1,
+                "name": "Pune",
+                "Stores": [
+                    {
+                        "id": 1,
+                        "name": "Viman Nagar",
+                        "storeAssociates": [
+                            {
+                                "id": 3001,
+                                "name": "Associate 1"
+                            },
+                            {
+                                "id": 3002,
+                                "name": "Associate 2"
+                            }
+                        ]
+                    },
+                    {
+                        "id": 2,
+                        "name": "Camp",
+                        "storeAssociates": [
+                            {
+                                "id": 1001,
+                                "name": "Associate 1"
+                            },
+                            {
+                                "id": 1002,
+                                "name": "Associate 2"
+                            }
+                        ]
+                    },
+                    {
+                        "id": 3,
+                        "name": "Nagar"
+                    },
+                    {
+                        "id": 4,
+                        "name": "Pimpri"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "Mumbai",
+                "stores": [
+                    {
+                        "id": 101,
+                        "name": "Dadar"
+                    },
+                    {
+                        "id": 102,
+                        "name": "Ghatkopar"
+                    },
+                    {
+                        "id": 103,
+                        "name": "Mulund",
+                        "storeAssociates": [
+                            {
+                                "id": 2001,
+                                "name": "Associate 1"
+                            },
+                            {
+                                "id": 2002,
+                                "name": "Associate 2"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "Stores": [
+            {
+                "id": 1,
+                "name": "Viman Nagar",
+                "storeAssociates": [
+                    {
+                        "id": 3001,
+                        "name": "Associate 1"
+                    },
+                    {
+                        "id": 3002,
+                        "name": "Associate 2"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "Camp",
+                "storeAssociates": [
+                    {
+                        "id": 1001,
+                        "name": "Associate 1"
+                    },
+                    {
+                        "id": 1002,
+                        "name": "Associate 2"
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "name": "Nagar"
+            },
+            {
+                "id": 4,
+                "name": "Pimpri"
+            }
+        ],
+        "date": [
+            {
+                "id": "1",
+                "datevalue": "Last 7 Days"
+            },
+            {
+                "id": "2",
+                "datevalue": "Custom Date"
+            }
+        ]
+
+
+}
